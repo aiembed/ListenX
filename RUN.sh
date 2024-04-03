@@ -46,11 +46,38 @@ install_jq
 cd ~/ListenX || exit
 create_venv
 
-# Install Whisper
-git clone https://github.com/ggerganov/whisper.cpp
-cd ~/ListenX/whisper.cpp
-make -j stream
-./models/download-ggml-model.sh tiny.en
+# Install Whisper if not already installed
+WHISPER_DIR="$HOME/ListenX/whisper.cpp"
+if [ ! -d "$WHISPER_DIR" ]; then
+    echo "Cloning Whisper repository..."
+    git clone https://github.com/ggerganov/whisper.cpp "$WHISPER_DIR"
+    echo "Whisper repository cloned successfully."
+    echo "Building Whisper..."
+    cd "$WHISPER_DIR"
+    make -j stream
+    echo "Whisper built successfully."
+else
+    echo "Whisper is already installed. Skipping installation."
+fi
+
+# Check if Whisper model files exist
+MODEL_DIR="$WHISPER_DIR/models"
+MODEL_FILE="tiny.en"
+MODEL_PATH="$MODEL_DIR/$MODEL_FILE"
+
+if [ -f "$MODEL_PATH" ]; then
+    echo "Whisper model '$MODEL_FILE' already exists. Skipping download."
+else
+    echo "Downloading Whisper model '$MODEL_FILE'..."
+    wget -P "$MODEL_DIR" "https://huggingface.co/ggerganov/whisper.cpp/blob/main/models/$MODEL_FILE"
+    if [ $? -eq 0 ]; then
+        echo "Whisper model '$MODEL_FILE' downloaded successfully."
+    else
+        echo "Failed to download Whisper model. Exiting."
+        exit 1
+    fi
+fi
+
 
 # Define variables
 OWNER="aiembed"
