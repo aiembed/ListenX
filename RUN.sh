@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#update from git
+git pull
+
 #fan control
 nohup fan.py > fan_output.log &
 
