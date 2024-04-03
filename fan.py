@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import subprocess
 import RPi.GPIO as GPIO
 import time
