@@ -46,9 +46,6 @@ install_jq
 cd ~/ListenX/ListenX || exit
 create_venv
 
-#fan control
-nohup fan.py > fan_output.log &
-
 # Install Whisper
 git clone https://github.com/ggerganov/whisper.cpp
 cd ~/whisper.cpp
