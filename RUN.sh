@@ -43,12 +43,12 @@ chmod +x "$0"
 install_jq
 
 # Create and activate the virtual environment
-cd ~/ListenX/ListenX || exit
+cd ~/ListenX || exit
 create_venv
 
 # Install Whisper
 git clone https://github.com/ggerganov/whisper.cpp
-cd ~/whisper.cpp
+cd ~/ListenX/whisper.cpp
 make -j stream
 ./models/download-ggml-model.sh tiny.en
 
