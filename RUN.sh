@@ -46,6 +46,9 @@ install_jq
 cd ~/ListenX || exit
 create_venv
 
+# Set execute permission for the script
+chmod +x "$SCRIPT_NAME"
+
 # Install Whisper if not already installed
 WHISPER_DIR="$HOME/ListenX/whisper.cpp"
 if [ ! -d "$WHISPER_DIR" ]; then
@@ -84,26 +87,7 @@ fi
 OWNER="aiembed"
 REPO="ListenX"
 SERVICE_NAME="listenx.service"
-
-# Get the latest release information using GitHub API
-LATEST_RELEASE=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/releases/latest" | jq -r '.tag_name')
-
-# Check if the Python script exists
-if [ -f "$SCRIPT_NAME" ]; then
-    echo "Python script '$SCRIPT_NAME' found."
-else
-    echo "Downloading Python script '$SCRIPT_NAME' from $SCRIPT_URL..."
-    wget "$SCRIPT_URL"
-    if [ $? -eq 0 ]; then
-        echo "Python script '$SCRIPT_NAME' downloaded successfully."
-    else
-        echo "Failed to download Python script. Exiting."
-        exit 1
-    fi
-fi
-
-# Set execute permission for the script
-chmod +x "$SCRIPT_NAME"
+SCRIPT_NAME="fan.py"
 
 # Create the systemd service file
 cat <<EOF | sudo tee "/etc/systemd/system/$SERVICE_NAME" > /dev/null
@@ -130,3 +114,5 @@ sudo systemctl enable "$SERVICE_NAME"
 sudo systemctl start "$SERVICE_NAME"
 
 echo "Setup completed."
+
+
