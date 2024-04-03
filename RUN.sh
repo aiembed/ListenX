@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#fan control
+nohup fan.py > fan_output.log &
+
 # Function to install jq if not already installed
 install_jq() {
     if ! command -v jq &> /dev/null; then
