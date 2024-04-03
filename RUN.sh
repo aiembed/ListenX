@@ -60,9 +60,6 @@ SERVICE_NAME="listenx.service"
 # Get the latest release information using GitHub API
 LATEST_RELEASE=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/releases/latest" | jq -r '.tag_name')
 
-# Construct the download URL for the Python script
-SCRIPT_URL="https://raw.githubusercontent.com/$OWNER/$REPO/$LATEST_RELEASE/$SCRIPT_NAME"
-
 # Check if the Python script exists
 if [ -f "$SCRIPT_NAME" ]; then
     echo "Python script '$SCRIPT_NAME' found."
