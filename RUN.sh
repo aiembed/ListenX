@@ -69,7 +69,8 @@ if [ -f "$MODEL_PATH" ]; then
     echo "Whisper model '$MODEL_FILE' already exists. Skipping download."
 else
     echo "Downloading Whisper model '$MODEL_FILE'..."
-    wget -P "$MODEL_DIR" "https://huggingface.co/ggerganov/whisper.cpp/blob/main/models/$MODEL_FILE"
+    cd "$WHISPER_DIR"  # Move to Whisper directory
+    bash ./models/download-ggml-model.sh "$MODEL_FILE"
     if [ $? -eq 0 ]; then
         echo "Whisper model '$MODEL_FILE' downloaded successfully."
     else
