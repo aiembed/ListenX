@@ -45,7 +45,7 @@ create_venv
 
 # Install Whisper
 git clone https://github.com/ggerganov/whisper.cpp
-cd whisper.cpp
+cd ~/whisper.cpp
 make -j stream
 ./models/download-ggml-model.sh tiny.en
 
