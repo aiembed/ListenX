@@ -3,9 +3,6 @@
 #update from git
 git pull
 
-#fan control
-nohup fan.py > fan_output.log &
-
 # Function to install jq if not already installed
 install_jq() {
     if ! command -v jq &> /dev/null; then
@@ -46,8 +43,11 @@ chmod +x "$0"
 install_jq
 
 # Create and activate the virtual environment
-cd ~/ListenX || exit
+cd ~/ListenX/ListenX || exit
 create_venv
+
+#fan control
+nohup fan.py > fan_output.log &
 
 # Install Whisper
 git clone https://github.com/ggerganov/whisper.cpp
